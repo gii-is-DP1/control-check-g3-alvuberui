@@ -28,6 +28,10 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.recoveryroom.RecoveryRoom;
+import org.springframework.samples.petclinic.recoveryroom.RecoveryRoomType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -35,9 +39,17 @@ import org.springframework.samples.petclinic.recoveryroom.RecoveryRoom;
  * @author Ken Krebs
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "visits")
 public class Visit extends BaseEntity {
-
+	
+	@ManyToOne
+	@JoinColumn(name = "recoveryRoomId", referencedColumnName = "id")
+    RecoveryRoom recoveryRoom;
+	
+	
+	
 	/**
 	 * Holds value of property date.
 	 */
@@ -115,12 +127,11 @@ public class Visit extends BaseEntity {
 	}
 
 	public RecoveryRoom getRecoveryRoom() {
-		// To be implemented
-		return null;
+		return this.recoveryRoom;
 	}
 
 	public void setRecoveryRoom(RecoveryRoom room) {
-		// To be implemented
+		this.recoveryRoom = room;
 	}
 
 }
